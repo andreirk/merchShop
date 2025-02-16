@@ -1,0 +1,13 @@
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:11.18-bullseye
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: merchShop
+      PG_DATA: /data/postgres
+    volumes:
+      - ../../postgres-data:/data/postgres
+    ports:
+      - "5432:5432"

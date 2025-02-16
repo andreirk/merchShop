@@ -1,0 +1,69 @@
+# GolangCI-Lint configuration
+run:
+  timeout: 5m
+  issues-exit-code: 1
+
+# List of enabled linters
+linters:
+  enable:
+    - errcheck            # Check for unchecked errors
+    - govet               # Go's official vet tool
+    - staticcheck         # Advanced static analysis
+    - unused             # Finds unused variables, functions, etc.
+    - gosimple            # Finds simpler alternatives
+    - gocritic            # Checks for common mistakes and improvements
+    - ineffassign         # Detects ineffective assignments
+    - typecheck           # Detects type-related issues
+    - misspell            # Detects common spelling mistakes
+    - goconst             # Suggests constant usage
+    - gofmt               # Enforces `gofmt` formatting
+    - goimports           # Ensures imports are formatted properly
+    - dupl                # Detects duplicate code
+    - unparam             # Finds unused function parameters
+    - prealloc            # Suggests preallocating slices when possible
+    - depguard            # Restricts usage of certain dependencies
+    - whitespace          # Checks for unnecessary whitespace
+    - forbidigo           # Detects usage of `go` keyword without proper error handling
+
+linters-settings:
+  goimports:
+    local-prefixes: "go/avito-test"
+  errcheck:
+    check-type-assertions: true
+    check-blank: true
+  gocritic:
+    enabled-tags:
+      - performance
+      - style
+      - diagnostic
+  depguard:
+    list-type: blacklist
+    include-go-root: false
+    packages:
+      - "github.com/pkg/errors"
+  staticcheck:
+    checks: ["all"]
+
+# Set exclusion rules
+issues:
+  exclude-use-default: false
+  exclude:
+    - "error return value not checked" # Ignore unchecked errors
+    - "should have comment" # Ignore missing comments on exported functions
+    - "G104" # Ignore unhandled errors in `defer`
+
+# Customize severity levels
+output:
+  format: tab
+  print-issued-lines: true
+  print-linter-name: true
+
+# Skip certain directories/files
+skip-dirs:
+  - "vendor"
+  - "third_party"
+  - "mocks"
+  - "generated"
+
+skip-files:
+  - "generated.go"
